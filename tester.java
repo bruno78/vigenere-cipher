@@ -28,6 +28,29 @@ public class tester
         FileResource fr = new FileResource("./testCases/athens_keyFlute.txt");
         String encrypted = fr.asString(); 
         VigenereBreaker vb = new VigenereBreaker();
-        vb.tryKeyLength(encrypted, 5, 'e');
+        int[]keys = vb.tryKeyLength(encrypted, 5, 'e');
+        for(int k = 0; k < keys.length; k++){
+            System.out.println(keys[k]);
+        }
+    }
+    
+    public void testVigenereCipher(){
+        VigenereBreaker vb = new VigenereBreaker();
+        vb.breakVigenere();
+    }
+    
+    public void quiz1(){
+        // Quiz 1
+		VigenereBreaker v = new VigenereBreaker();
+		FileResource fr = new FileResource("./testCases/secretmessage1.txt");
+		String message = fr.asString();
+		int [] key = v.tryKeyLength(message, 4, 'e');
+		for (Integer i: key)
+			System.out.print(i + " ");
+		System.out.println();
+		// Quiz 2
+		VigenereCipher vc = new VigenereCipher(key);
+    	String decrypt = vc.decrypt(message);
+    	System.out.println(decrypt);
     }
 }

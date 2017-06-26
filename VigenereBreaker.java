@@ -2,6 +2,7 @@ import java.util.*;
 import edu.duke.*;
 
 public class VigenereBreaker {
+
     public String sliceString(String message, int whichSlice, int totalSlices) {
         StringBuilder slicedString = new StringBuilder("");
         for (int k = whichSlice; k < message.length(); k += totalSlices) {
@@ -9,7 +10,7 @@ public class VigenereBreaker {
         }
         return slicedString.toString();
     }
-
+    
     public int[] tryKeyLength(String encrypted, int klength, char mostCommon) {
         int[] key = new int[klength];
         //use caesar cracker
@@ -23,7 +24,11 @@ public class VigenereBreaker {
     }
 
     public void breakVigenere () {
-        //WRITE YOUR CODE HERE
+        FileResource fr = new FileResource();
+        String encrypted = fr.asString();
+        int[]keys = tryKeyLength(encrypted, 5, 'e');
+        VigenereCipher vc = new VigenereCipher(keys);
+        System.out.println(vc.decrypt(encrypted));
     }
-    
+
 }
