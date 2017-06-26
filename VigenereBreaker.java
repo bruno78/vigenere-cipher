@@ -30,5 +30,8 @@ public class VigenereBreaker {
         VigenereCipher vc = new VigenereCipher(keys);
         System.out.println(vc.decrypt(encrypted));
     }
-
+    
+    /* Method for Unknown length  */
+    
+    
 }
