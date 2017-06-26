@@ -5,6 +5,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+import edu.duke.*;
 public class tester
 {
     public void testSliceString(){
@@ -21,5 +22,12 @@ public class tester
         System.out.println(vb.sliceString("abcdefghijklm", 2, 5));
         System.out.println(vb.sliceString("abcdefghijklm", 3, 5));
         System.out.println(vb.sliceString("abcdefghijklm", 4, 5));
+    }
+    
+    public void testTryKeylength(){
+        FileResource fr = new FileResource("./testCases/athens_keyFlute.txt");
+        String encrypted = fr.asString(); 
+        VigenereBreaker vb = new VigenereBreaker();
+        vb.tryKeyLength(encrypted, 5, 'e');
     }
 }

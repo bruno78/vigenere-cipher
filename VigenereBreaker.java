@@ -12,7 +12,13 @@ public class VigenereBreaker {
 
     public int[] tryKeyLength(String encrypted, int klength, char mostCommon) {
         int[] key = new int[klength];
-        //WRITE YOUR CODE HERE
+        //use caesar cracker
+        CaesarCracker cc = new CaesarCracker(mostCommon);
+        for (int k = 0; k < klength; k++){
+            String seq = sliceString(encrypted, k, klength);
+            int num = cc.getKey(seq);
+            key[k] = num;
+        }
         return key;
     }
 
