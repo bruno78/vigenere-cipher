@@ -33,5 +33,39 @@ public class VigenereBreaker {
     
     /* Method for Unknown length  */
     
+    public HashSet<String> readDictionary(FileResource fr){
+        HashSet<String> dictionary = new HashSet<String>();
+        for(String line : fr.lines()){
+            dictionary.add(line.toLowerCase());
+        }
+        return dictionary;
+    }
     
+    public int countWords(String message, HashSet<String> dictionary){
+        String[] words = message.split("\\W+");
+        int count = 0;
+        for ( int k = 0; k < words.length; k++){
+            if(dictionary.contains(words[k])){
+                count ++;
+            }
+        }
+        return count;
+    }
+    
+    public String breakForLanguage(String encrypted, HashSet<String> dictionary){
+        VigenereBreaker vb = new VigenereBreaker();
+        int maxCount = 0;
+        String answer = "";
+        for (int k = 0; k < 101; k++){    
+            int[] key = vb.tryKeyLength(encrypted, k, 'e');
+            VigenereCipher vc = new VigenereCipher(key);
+            String message = vc.decrypt(encrypted);
+            int currCount = countWords(message, dictionary);
+            if (maxCount < currCount){
+                maxCount = currCount; 
+                answer = message;
+            }
+        }
+        return answer;
+    }
 }
