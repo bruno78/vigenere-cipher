@@ -6,6 +6,8 @@
  * @version (a version number or a date)
  */
 import edu.duke.*;
+import java.util.*;
+
 public class tester
 {
     public void testSliceString(){
@@ -41,16 +43,26 @@ public class tester
     
     public void quiz1(){
         // Quiz 1
-		VigenereBreaker v = new VigenereBreaker();
-		FileResource fr = new FileResource("./testCases/secretmessage1.txt");
-		String message = fr.asString();
-		int [] key = v.tryKeyLength(message, 4, 'e');
-		for (Integer i: key)
-			System.out.print(i + " ");
-		System.out.println();
-		// Quiz 2
-		VigenereCipher vc = new VigenereCipher(key);
-    	String decrypt = vc.decrypt(message);
-    	System.out.println(decrypt);
+        VigenereBreaker v = new VigenereBreaker();
+        FileResource fr = new FileResource("./testCases/secretmessage1.txt");
+        String message = fr.asString();
+        int [] key = v.tryKeyLength(message, 4, 'e');
+        for (Integer i: key)
+            System.out.print(i + " ");
+        System.out.println();
+        // Quiz 2
+        VigenereCipher vc = new VigenereCipher(key);
+        String decrypt = vc.decrypt(message);
+        System.out.println(decrypt);
+    }
+    
+    public void testVigenereCipher2(){
+        VigenereBreaker vb = new VigenereBreaker();
+        vb.breakVigenere();
+    }
+    
+    public void quiz2(){
+        VigenereBreaker vb = new VigenereBreaker();
+        vb.breakVigenere2();
     }
 }

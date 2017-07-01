@@ -2,6 +2,34 @@ import java.util.*;
 import edu.duke.*;
 
 public class VigenereBreaker {
+    
+    private int keyLength;
+    private int wordCount;
+    private int totalCount;
+    
+    public VigenereBreaker(){
+        keyLength = 0;
+        wordCount = 0;
+        totalCount = 0;
+    }
+    
+    public void setKeyLength(int keyLength){
+        this.keyLength = keyLength;
+    }
+    
+    public int getKeyLength(){
+        return keyLength;
+    }
+    
+    public void setWordCount(int wordCount, int totalCount){
+        this.wordCount = wordCount;
+        this.totalCount = totalCount;
+    }
+    
+    public String getWordCount(){
+        return "The total num of words are " + totalCount + "\n" +
+               "Total valid words are " + wordCount;
+    }
 
     public String sliceString(String message, int whichSlice, int totalSlices) {
         StringBuilder slicedString = new StringBuilder("");
@@ -45,7 +73,7 @@ public class VigenereBreaker {
         String[] words = message.split("\\W+");
         int count = 0;
         for ( int k = 0; k < words.length; k++){
-            if(dictionary.contains(words[k])){
+            if(dictionary.contains(words[k].toLowerCase())){
                 count ++;
             }
         }
@@ -56,16 +84,31 @@ public class VigenereBreaker {
         VigenereBreaker vb = new VigenereBreaker();
         int maxCount = 0;
         String answer = "";
-        for (int k = 0; k < 101; k++){    
+        int keyLength = 0;
+        for (int k = 1; k <= 100; k++){    
             int[] key = vb.tryKeyLength(encrypted, k, 'e');
             VigenereCipher vc = new VigenereCipher(key);
             String message = vc.decrypt(encrypted);
             int currCount = countWords(message, dictionary);
+            int totalCount = message.split("\\W+").length;
             if (maxCount < currCount){
                 maxCount = currCount; 
                 answer = message;
+                setKeyLength(key.length);
+                setWordCount(maxCount, totalCount);
             }
         }
         return answer;
+    }
+    
+    public void breakVigenere2 () {
+        FileResource fr = new FileResource();
+        String encrypted = fr.asString();
+        FileResource dr = new FileResource("./dictionaries/English");
+        HashSet<String> dictionary = readDictionary(dr);
+        String message = breakForLanguage(encrypted, dictionary);
+        System.out.println(message);
+        System.out.println("The num of words were " + getWordCount());
+        System.out.println("The size of key is " + getKeyLength());
     }
 }
