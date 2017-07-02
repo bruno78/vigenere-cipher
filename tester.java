@@ -65,4 +65,9 @@ public class tester
         VigenereBreaker vb = new VigenereBreaker();
         vb.breakVigenere2();
     }
+    
+    public void testBreakVigenere3(){
+        VigenereBreaker vb = new VigenereBreaker();
+        vb.breakVigenere3();
+    }
 }
